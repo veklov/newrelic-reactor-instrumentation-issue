@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true">
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-25thread] [%-5level] [%X{trace.id}] [%logger{40}] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="NEWRELIC_MDC" class="com.newrelic.logging.logback.NewRelicAsyncAppender">
+        <appender-ref ref="CONSOLE" />
+    </appender>
+
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+        <resetJUL>true</resetJUL>
+    </contextListener>
+
+    <root level="INFO">
+        <appender-ref ref="NEWRELIC_MDC"/>
+    </root>
+
+</configuration>
